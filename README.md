@@ -32,11 +32,11 @@
     <img src="figs/framework.png" width="70%"> <br>
 </p>
 
-> [**GPT4RoI: Instruction Tuning Large Language Model on Region-of-Interest**]()               
+> [**GPT4RoI: Instruction Tuning Large Language Model on Region-of-Interest**](https://jshilong.github.io/images/gpt4roi.pdf)               
 > [Shilong Zhang*](https://jshilong.github.io/), [Peize Sun*](https://peizesun.github.io/), [Shoufa Chen*](https://www.shoufachen.com/), Min Xiao, Wenqi Shao ,Wenwei Zhang, Kai Chen, Ping Luo</br>
 > (*Equal Contribution) 
 
-### [[Demo](http://139.196.83.164:7000/)]  [[Paper]()] [[中文介绍]()]
+### [[Demo](http://139.196.83.164:7000/)]  [[Paper](https://jshilong.github.io/images/gpt4roi.pdf)] [[中文介绍]()]
 
 [//]: # (#:grin::grin::grin:信交流群：xxx &#40;答案：cheems&#41;)
 
