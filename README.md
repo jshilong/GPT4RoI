@@ -27,26 +27,24 @@
 
 
 
-> [**GPT4RoI: Instruction Tuning Large Language Model on Region-of-Interest**]()               
-> [Shilong Zhang*](https://jshilong.github.io/), [Peize Sun*](https://peizesun.github.io/), [Shoufa Chen*](https://www.shoufachen.com/), Min Xiao, Wenqi Shao ,Wenwei Zhang, Kai Chen, Ping Luo (*Equal Contribution)                 
-> *[arXiv]()* 
-
-
-
+## Introduction
 <p align="center">
     <img src="figs/framework.png" width="70%"> <br>
 </p>
 
+> [**GPT4RoI: Instruction Tuning Large Language Model on Region-of-Interest**]()               
+> [Shilong Zhang*](https://jshilong.github.io/), [Peize Sun*](https://peizesun.github.io/), [Shoufa Chen*](https://www.shoufachen.com/), Min Xiao, Wenqi Shao ,Wenwei Zhang, Kai Chen, Ping Luo</br>
+> (*Equal Contribution) 
 
-### :fire::fire::fire: [Demo](http://139.196.83.164:7000/) !
-### :point_right::point_right::point_right:[coming soon-GPT4RoI 知乎中文介绍]()
+### [[Demo](http://139.196.83.164:7000/)]  [[Paper]()] [[中文介绍]()]
 
 [//]: # (#:grin::grin::grin:信交流群：xxx &#40;答案：cheems&#41;)
 
 
+
 ## Updates
 
-- [July 7]  All training and inference code has been released, you can try demo here :fire::fire::fire: ([Demo](http://139.196.83.164:7000/)) !  
+- [July 7]  All training and inference code has been released, you can try demo [here](http://139.196.83.164:7000/) :fire::fire::fire:
 
 
 
