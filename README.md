@@ -32,11 +32,11 @@
     <img src="figs/framework.png" width="70%"> <br>
 </p>
 
-> [**GPT4RoI: Instruction Tuning Large Language Model on Region-of-Interest**](https://jshilong.github.io/images/gpt4roi.pdf)               
+> [**GPT4RoI: Instruction Tuning Large Language Model on Region-of-Interest**](https://arxiv.org/abs/2307.03601)               
 > [Shilong Zhang*](https://jshilong.github.io/), [Peize Sun*](https://peizesun.github.io/), [Shoufa Chen*](https://www.shoufachen.com/), Min Xiao, Wenqi Shao ,Wenwei Zhang, Kai Chen, Ping Luo</br>
 > (*Equal Contribution) 
 
-### [[Demo](http://139.196.83.164:7000/)]  [[Paper](https://jshilong.github.io/images/gpt4roi.pdf)] [[中文介绍](https://zhuanlan.zhihu.com/p/640283103)]
+### [[Demo](http://139.196.83.164:7000/)]  [[Paper](https://arxiv.org/abs/2307.03601)] [[中文介绍](https://zhuanlan.zhihu.com/p/640283103)]
 
 [//]: # (#:grin::grin::grin:信交流群：xxx &#40;答案：cheems&#41;)
 
@@ -207,5 +207,12 @@ You should always use `<region1>, <region2>...` to refer the new bounding box in
 
 If you find GPT4RoI useful for your your research and applications, please cite using this BibTeX:
 ```bibtex
-
+@misc{zhang2023gpt4roi,
+      title={GPT4RoI: Instruction Tuning Large Language Model on Region-of-Interest}, 
+      author={Shilong Zhang and Peize Sun and Shoufa Chen and Min Xiao and Wenqi Shao and Wenwei Zhang and Kai Chen and Ping Luo},
+      year={2023},
+      eprint={2307.03601},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
 ```
