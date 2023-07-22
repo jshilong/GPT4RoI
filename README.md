@@ -133,8 +133,8 @@ GPT4RoI
 ```
 ### NOTE
 1. coco_imgs should contains all coco image(you can soft link them to this directory.
-2. We use Visual_Genome_Dataset_V1.2, you should soft all vg images to `vg_all`.
-3. `llava_150k_bbox_pred_results.pkl` contains the detection predicted results with EVA-02-DET. We appreciate their work.
+2. We use Visual_Genome_Dataset_V1.2, available for download from  [OpenDataLab](https://opendatalab.com/). Ensure to download the  [train.json][https://datarelease.blob.core.windows.net/grit/VG_preprocessed_annotations/train.json], you should create a soft link for all VG images to the directory `vg_all`.
+3. [llava_150k_bbox_pred_results.pkl](https://huggingface.co/shilongz/temp/tree/main) contains the detection predicted results with EVA-02-DET. We appreciate their work.
 
 
 
@@ -170,13 +170,20 @@ GPT4RoI is trained on 8 A100 with the following code.
  
 
 You should modify the `gpt4roi/configs/dataset_config.json` to make sure you only use the dataset of stage1.
-
+`exp/stage1` is the work directory. 
 ```Shell
-bash train_stage1.sh
+bash train_stage1.sh exp/stage1
+# Resume training in stage1
+# bash train_stage1.sh exp/stage1
+
 ```
 You should modify the `gpt4roi/configs/dataset_config.json` to make sure you only use the dataset of stage2.
+`exp/stage2` is the work directory. and you should give the work directory of stage1 so we can load the corresponding weight as pretrain model.
 ```Shell
-bash train_stage2.sh
+# At the beginning of stage2
+bash train_stage2.sh exp/stage2 exp/stage1
+# Resume training in stage2
+# bash train_stage2.sh exp/stage2 
 ```
 
 

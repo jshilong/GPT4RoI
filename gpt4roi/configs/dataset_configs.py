@@ -2,8 +2,8 @@ spi_datasets = [
     # STAGE 1
     ###############################################STAGE 1#############################################
     {
-        'type': 'coco_det',
-        'vis_root': './data/coco',
+    'type': 'coco_det',
+    'vis_root': './data/coco',
     },
     {'type': 'RefCOCO',
      'ann_file': './data/mdetr_annotations/finetune_refcoco_train.json',
