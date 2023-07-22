@@ -1,4 +1,30 @@
+#!/bin/bash
+
+WORKDIR=${1:-./exp/stage2}
+STAGE1WORKDIR=${2:-./exp/stage1}
+mkdir -p $WORKDIR
+
+
+
+# Check if workdir is empty
+if [ "$(find $WORKDIR -mindepth 1 -maxdepth 1 -type d)" ]; then
+    echo "WORKDIR is not empty, resume training"
+else
+    # Check if STAGE1WORKDIR exists
+    if [ ! -d $STAGE1WORKDIR ]; then
+        echo "Error: Stage1 work directory $STAGE1WORKDIR does not exist."
+        exit 1
+    fi
+    echo "WORKDIR is empty, load the model form stage1 workdir $STAGE1WORKDIR"
+   # If empty, create checkpoint-0 directory and soft link all files from stage 1 except for 'scheduler.pt', 'training_args.bin', and 'optimizer.pt', so we can load the checkpoint from stage 1
+   mkdir -p $WORKDIR/checkpoint-0
+   find $STAGE1WORKDIR/* -type f -not -name 'scheduler.pt' -not -name 'training_args.bin' -not -name 'optimizer.pt' -print0 | xargs -0 -I {} ln -s {} $WORKDIR/checkpoint-0/
+fi
+
+
+
 export PYTHONPATH=`pwd`:$PYTHONPATH
+
 torchrun --nnodes=1 --nproc_per_node=8 --master_port=25001 \
     gpt4roi/train/train_mem.py \
     --model_name_or_path /mnt/petrelfs/share_data/zhangshilong/vicuna-7b/ \
@@ -7,7 +33,7 @@ torchrun --nnodes=1 --nproc_per_node=8 --master_port=25001 \
     --mm_vision_select_layer -2 \
     --mm_use_im_start_end True \
     --bf16 True \
-    --output_dir ./exp/stage2 \
+    --output_dir $WORKDIR \
     --num_train_epochs 2 \
     --per_device_train_batch_size 2 \
     --per_device_eval_batch_size 4 \
@@ -30,4 +56,4 @@ torchrun --nnodes=1 --nproc_per_node=8 --master_port=25001 \
     --lazy_preprocess True \
     --report_to "none" \
     --seed 0 \
-    | tee ./exp/stage2/train.log
+    | tee $WORKDIR/train.log

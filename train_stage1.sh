@@ -1,5 +1,13 @@
+#!/bin/bash
+
+WORKDIR=${1:-./exp/stage1}
+mkdir -p $WORKDIR
+
 export PYTHONPATH=`pwd`:$PYTHONPATH
+# only train the spi module
 export ONLY_SPI=1
+
+
 torchrun --nnodes=1 --nproc_per_node=4 --master_port=25002 \
     gpt4roi/train/train_mem.py \
     --model_name_or_path /mnt/petrelfs/share_data/zhangshilong/vicuna-7b/ \
@@ -8,7 +16,7 @@ torchrun --nnodes=1 --nproc_per_node=4 --master_port=25002 \
     --mm_vision_select_layer -2 \
     --mm_use_im_start_end True \
     --bf16 True \
-    --output_dir ./exp/stage2 \
+    --output_dir $WORKDIR \
     --num_train_epochs 2 \
     --per_device_train_batch_size 1 \
     --per_device_eval_batch_size 4 \
@@ -28,4 +36,4 @@ torchrun --nnodes=1 --nproc_per_node=4 --master_port=25002 \
     --lazy_preprocess True \
     --report_to "none" \
     --seed 0 \
-    | tee ./exp/stage2/train.log
+    | tee $WORKDIR/train.log

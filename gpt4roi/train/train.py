@@ -65,7 +65,7 @@ class DataArguments:
     sep_image_conv_front: bool = False
     image_token_len: int = 0
     image_aspect_ratio: str = 'square'
-    dataset_config: Optional[str] = field(default='./xgpt/configs/dataset_configs.py',
+    dataset_config: Optional[str] = field(default='./gpt4roi/configs/dataset_configs.py',
                                           metadata={'help': 'Path to the dataset config file.'})
 
 
