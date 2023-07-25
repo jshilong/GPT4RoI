@@ -183,6 +183,8 @@ bash train_stage1.sh exp/stage1
 # Resume training in stage1
 # bash train_stage1.sh exp/stage1
 
+### STAGE 2
+
 ```
 `exp/stage2` is the work directory. and you should give the work directory of stage1 so we can load the corresponding weight as pretrain model.
 ```Shell
