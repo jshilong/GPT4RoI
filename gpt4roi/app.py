@@ -396,7 +396,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-p', '--port', type=int, default=20012)
     parser.add_argument('--https', action='store_true')
-    parser.add_argument('--model', type=str, default='/home/shilong/Desktop/xgpt/heavy_roi_checkpoints/debug')
+    parser.add_argument('--model', type=str, default='./GPT4RoI-7B')
     args = parser.parse_args()
     
     bot = ConversationBot(model_name=args.model)
