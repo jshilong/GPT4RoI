@@ -44,7 +44,7 @@
 
 ## Updates
 
-- [July 25]  [GPT4RoI-7B-delta-V0](https://huggingface.co/shilongz/GPT4RoI-7B-delta-V0) has release ! :fire::fire::fire: You need to combine our delta with the original LLaMA weights follow the [GPT4RoI Weights](#Weights). 
+- [July 25]  [GPT4RoI-7B-delta-V0](https://huggingface.co/shilongz/GPT4RoI-7B-delta-V0) has release ! :fire::fire::fire: You need to combine our delta with the original LLaMA weights follow the [GPT4RoI Weights](https://github.com/jshilong/GPT4RoI/tree/main#weights) section. 
 - [July 7]  All training and inference code has been released, you can try demo [here](http://139.196.83.164:7000/) :fire::fire::fire:
 
 
