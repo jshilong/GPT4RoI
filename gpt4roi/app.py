@@ -49,7 +49,7 @@ def count_num_bboxes(text):
     return len(matches), matches
 
 class ConversationBot:
-    def __init__(self, model_name='/root/cloud_disk/debug'):
+    def __init__(self, model_name='/home/shilong/Desktop/xgpt/heavy_roi_checkpoints/debug'):
         print('Have fun, cheems!')
         if DEBUG:
             print('Debug mode ....')
@@ -396,8 +396,10 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-p', '--port', type=int, default=20012)
     parser.add_argument('--https', action='store_true')
+    parser.add_argument('--model', type=str, default='./GPT4RoI-7B')
     args = parser.parse_args()
-    bot = ConversationBot()
+    
+    bot = ConversationBot(model_name=args.model)
     with gr.Blocks(theme=ThemeBase.Base(), css=css) as demo:
         state = gr.State([])
         history_cache = gr.State([])

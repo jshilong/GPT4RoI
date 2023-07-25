@@ -10,9 +10,10 @@ export ONLY_SPI=1
 
 torchrun --nnodes=1 --nproc_per_node=4 --master_port=25002 \
     gpt4roi/train/train_mem.py \
-    --model_name_or_path /mnt/petrelfs/share_data/zhangshilong/vicuna-7b/ \
+    --model_name_or_path path_to_vicuna-7b  \
     --vision_tower openai/clip-vit-large-patch14 \
     --pretrain_mm_mlp_adapter LLaVA-7b-pretrain-projector-v0-CC3M-595K-original_caption.bin \
+    --dataset_config ./gpt4roi/configs/stage1.py \
     --mm_vision_select_layer -2 \
     --mm_use_im_start_end True \
     --bf16 True \

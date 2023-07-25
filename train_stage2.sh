@@ -17,19 +17,21 @@ else
     fi
     echo "WORKDIR is empty, load the model form stage1 workdir $STAGE1WORKDIR"
    # If empty, create checkpoint-0 directory and soft link all files from stage 1 except for 'scheduler.pt', 'training_args.bin', and 'optimizer.pt', so we can load the checkpoint from stage 1
-   mkdir -p $WORKDIR/checkpoint-0
-   find $STAGE1WORKDIR/* -type f -not -name 'scheduler.pt' -not -name 'training_args.bin' -not -name 'optimizer.pt' -print0 | xargs -0 -I {} ln -s {} $WORKDIR/checkpoint-0/
+    mkdir -p $WORKDIR/checkpoint-0
+    cd $WORKDIR/checkpoint-0/
+    find $STAGE1WORKDIR/* -type f -not -name 'scheduler.pt' -not -name 'training_args.bin' -not -name 'optimizer.pt' -not -name 'trainer_state.json' -print0 | xargs -0 -I {} ln -s {} .
+    cd -
 fi
-
 
 
 export PYTHONPATH=`pwd`:$PYTHONPATH
 
 torchrun --nnodes=1 --nproc_per_node=8 --master_port=25001 \
     gpt4roi/train/train_mem.py \
-    --model_name_or_path /mnt/petrelfs/share_data/zhangshilong/vicuna-7b/ \
+    --model_name_or_path path_to_vicuna-7b \
     --vision_tower openai/clip-vit-large-patch14 \
     --pretrain_mm_mlp_adapter LLaVA-7b-pretrain-projector-v0-CC3M-595K-original_caption.bin \
+    --dataset_config ./gpt4roi/configs/stage2.py \
     --mm_vision_select_layer -2 \
     --mm_use_im_start_end True \
     --bf16 True \
