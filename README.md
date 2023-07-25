@@ -44,7 +44,7 @@
 
 ## Updates
 
-- [July 25]  [GPT4RoI-7B-V0](https://huggingface.co/shilongz/GPT4RoI) has release ! :fire::fire::fire:
+- [July 25]  [GPT4RoI-7B-delta-V0](https://huggingface.co/shilongz/GPT4RoI-7B-delta-V0) has release ! :fire::fire::fire: You need to combine our delta with the original LLaMA weights follow the [GPT4RoI Weights](Weights). 
 - [July 7]  All training and inference code has been released, you can try demo [here](http://139.196.83.164:7000/) :fire::fire::fire:
 
 
@@ -154,9 +154,9 @@ Alternatively, access the [webpage](https://huggingface.co/decapoda-research/lla
 The delta weights for GPT4RoI-7B can be downloaded using the following commands:
 ```shell
 git lfs install
-git clone https://huggingface.co/shilongz/GPT4RoI ./GPT4RoI-7B-delta
+git clone https://huggingface.co/shilongz/GPT4RoI-7B-delta-V0 ./GPT4RoI-7B-delta
 ```
-You can also directly download the file from this [webpage](https://huggingface.co/shilongz/GPT4RoI/tree/main).
+You can also directly download the file from this [webpage](https://huggingface.co/shilongz/GPT4RoI-7B-delta-V0/tree/main).
 
 ### Step3. Apply the delta weights to the original LLaMA-7B weights
 Apply the delta weights to the original LLaMA-7B weights. Note that this conversion command requires approximately 30 GB of CPU RAM.
