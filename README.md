@@ -44,9 +44,8 @@
 
 ## Updates
 
+- [July 25]  [GPT4RoI-7B-V0](https://huggingface.co/shilongz/GPT4RoI) has release ! :fire::fire::fire:
 - [July 7]  All training and inference code has been released, you can try demo [here](http://139.196.83.164:7000/) :fire::fire::fire:
-
-
 
 
 ## Contents
@@ -133,43 +132,50 @@ GPT4RoI
 ```
 ### NOTE
 1. coco_imgs should contains all coco image(you can soft link them to this directory.
-2. We use Visual_Genome_Dataset_V1.2, available for download from  [OpenDataLab](https://opendatalab.com/). Ensure to download the  [train.json][https://datarelease.blob.core.windows.net/grit/VG_preprocessed_annotations/train.json], you should create a soft link for all VG images to the directory `vg_all`.
+2. We use Visual_Genome_Dataset_V1.2, available for download from  [OpenDataLab](https://opendatalab.com/). Ensure to download the  [train.json](https://datarelease.blob.core.windows.net/grit/VG_preprocessed_annotations/train.json), you should create a soft link for all VG images to the directory `vg_all`.
 3. [llava_150k_bbox_pred_results.pkl](https://huggingface.co/shilongz/temp/tree/main) contains the detection predicted results with EVA-02-DET. We appreciate their work.
 
 
 
 ## Weights
-coming soon.
+Due to the licensing restrictions of LLaMA, the delta weights GPT4RoI-7B is produced from LLaMA-7B. To acquire the GPT4RoI weights, you need to combine our delta with the original LLaMA weights.
 
-
-We release [coming soon.](https://GPT4RoI.github.io/) weights as delta weights to comply with the LLaMA model license.
-You can add our delta to the original LLaMA weights to obtain the LLaVA weights.
-
-Instructions:
-
-1. Get the original LLaMA weights in the huggingface format by following the instructions [here](https://huggingface.co/docs/transformers/main/model_doc/llama).
-2. Use the following scripts to get LLaVA weights by applying our delta [coming soon.]()
-
-
-### GPT4RoI-7B
-This conversion command needs around 30 GB of CPU RAM.
-```bash
-python3 -m llava.model.apply_delta \
-    --base /path/to/llama-7b \
-    --target /output/path/GPT4RoI-7B-v0 \
-    --delta jshilong/GPT4RoI-7B-v0
+### Step1. Download the original LLaMA-7B weights
+The original LLaMA weights are available for download. Use the following commands:
+```shell
+git lfs install
+git clone https://huggingface.co/decapoda-research/llama-7b-hf ./llama-7b 
 ```
 
+Alternatively, access the [webpage](https://huggingface.co/decapoda-research/llama-7b-hf/tree/main) to download the file.
 
+### Step2. Download the delta weights of GPT4RoI-7B
 
+The delta weights for GPT4RoI-7B can be downloaded using the following commands:
+```shell
+git lfs install
+git clone https://huggingface.co/shilongz/GPT4RoI ./GPT4RoI-7B-delta
+```
+You can also directly download the file from this [webpage](https://huggingface.co/shilongz/GPT4RoI/tree/main).
+
+### Step3. Apply the delta weights to the original LLaMA-7B weights
+Apply the delta weights to the original LLaMA-7B weights. Note that this conversion command requires approximately 30 GB of CPU RAM.
+```bash
+python3 -m scripts.apply_delta.py \
+    --base ./llama-7b \
+    --target ./GPT4RoI-7B \
+    --delta ./GPT4RoI-7B-delta
+```
 
 ## Training
 GPT4RoI is trained on 8 A100 with the following code.
 
 ### STAGE 1
- 
+Vicuna-v0, an instruction-tuned chatbot, is the base model for this setup. In order to prepare it, first download the delta weights available [here](https://huggingface.co/lmsys/vicuna-7b-delta-v0). To obtain the original weights, follow the instructions provided [here](https://github.com/lm-sys/FastChat/blob/main/docs/vicuna_weights_version.md#how-to-apply-delta-weights-for-weights-v11-and-v0) to integrate these delta weights into LLaMA-7B.
 
-You should modify the `gpt4roi/configs/dataset_config.json` to make sure you only use the dataset of stage1.
+Ensure to download the following projector weight file: [LLaVA-7b-pretrain-projector-v0-CC3M-595K-original_caption.bin](https://huggingface.co/liuhaotian/LLaVA-Pretrained-Projectors/resolve/main/LLaVA-7b-pretrain-projector-v0-CC3M-595K-original_caption.bin).
+
+Additionally, you have the flexibility to choose from different versions of Vicuna (such as the 13B version or llama v2 chatbot) and the corresponding projector weights from [LLaVA](https://github.com/haotian-liu/LLaVA) to meet your specific requirements effectively.
 `exp/stage1` is the work directory. 
 ```Shell
 bash train_stage1.sh exp/stage1
@@ -177,7 +183,6 @@ bash train_stage1.sh exp/stage1
 # bash train_stage1.sh exp/stage1
 
 ```
-You should modify the `gpt4roi/configs/dataset_config.json` to make sure you only use the dataset of stage2.
 `exp/stage2` is the work directory. and you should give the work directory of stage1 so we can load the corresponding weight as pretrain model.
 ```Shell
 # At the beginning of stage2
