@@ -1,13 +1,15 @@
 """
 Usage:
-python3 -m fastchat.model.apply_delta --base ~/model_weights/llama-7b --target ~/model_weights/vicuna-7b --delta lmsys/vicuna-7b-delta
+ python scripts/apply_delta.py  --base ./llama-7b-hf  --target ./gpt4roi-7b  --delta ./gpt4roi-7b-delta
 """
 import argparse
 
 import torch
 from tqdm import tqdm
 from transformers import AutoTokenizer, AutoModelForCausalLM
-from llava import LlavaLlamaForCausalLM
+
+from gpt4roi.models.spi_llava import SPILlavaMPTForCausalLM
+
 
 
 def apply_delta(base_model_path, target_model_path, delta_path):
@@ -16,14 +18,18 @@ def apply_delta(base_model_path, target_model_path, delta_path):
         base_model_path, torch_dtype=torch.float16, low_cpu_mem_usage=True)
 
     print("Loading delta")
-    delta = LlavaLlamaForCausalLM.from_pretrained(delta_path, torch_dtype=torch.float16, low_cpu_mem_usage=True)
+    delta = SPILlavaMPTForCausalLM.from_pretrained(delta_path, torch_dtype=torch.float16, low_cpu_mem_usage=True)
     delta_tokenizer = AutoTokenizer.from_pretrained(delta_path)
 
     print("Applying delta")
     for name, param in tqdm(delta.state_dict().items(), desc="Applying delta"):
         if name not in base.state_dict():
-            assert name in ['model.mm_projector.weight', 'model.mm_projector.bias'], f'{name} not in base model'
-            continue
+            if name in ['model.mm_projector.weight', 'model.mm_projector.bias']:
+                continue
+            elif "spi_module" in name:
+                continue
+            else:
+                raise NameError
         if param.data.shape == base.state_dict()[name].shape:
             param.data += base.state_dict()[name]
         else:
