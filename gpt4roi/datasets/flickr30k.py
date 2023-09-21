@@ -264,7 +264,7 @@ class Flickr30k(CocoDataset):
         s_bbox_string = ''
         num_bboxes = min(len(ori_labels), self.max_gt_per_img)
         for id in range(num_bboxes):
-            s_bbox_string = s_bbox_string + f'{id+1} <bbox>,'
+            s_bbox_string = s_bbox_string + f'region{id+1} <bbox>,'
         question = question.replace('<spi_descript>', s_bbox_string)
         sources['conversations'].append(
             {'from': 'human', 'value': question})
@@ -310,7 +310,7 @@ class Flickr30k(CocoDataset):
 
         data_dict['image'] = image
 
-        # double for last detail question
+ 
         select_bboxes = torch.cat([select_bboxes], dim=0)
        
         select_bboxes = copy.deepcopy(select_bboxes) / image.shape[1]
