@@ -65,7 +65,7 @@ class Flickr30k(CocoDataset):
                  ignore_instruction=True,
                  filter_small=False,
                  test_mode=False,
-                 max_gt_per_img=15,
+                 max_gt_per_img=150,
                  ):
 
         self.multimodal_cfg = multimodal_cfg
@@ -73,6 +73,7 @@ class Flickr30k(CocoDataset):
         self.ann_file = ann_file
         self.img_prefix = img_prefix
         self.vis_processor = vis_processor
+        # remove this
         self.max_gt_per_img = max_gt_per_img
         self.add_eos = add_eos
         self.ignore_instruction = ignore_instruction
@@ -261,7 +262,8 @@ class Flickr30k(CocoDataset):
         question = random.choice(FINAL_QUESTIONS).strip()
 
         s_bbox_string = ''
-        for id in range(len(ori_labels)):
+        num_bboxes = min(len(ori_labels), self.max_gt_per_img)
+        for id in range(num_bboxes):
             s_bbox_string = s_bbox_string + f'region{id+1} <bbox>,'
         question = question.replace('<spi_descript>', s_bbox_string)
         sources['conversations'].append(
@@ -270,15 +272,15 @@ class Flickr30k(CocoDataset):
             self.id_cap_dict[data_item['img_metas'].data['filename'].split('/')[-1]]})
 
         shuffle_ids = torch.randperm(len(ori_labels))
-        if len(shuffle_ids) > self.max_gt_per_img:
-            shuffle_ids = shuffle_ids[:self.max_gt_per_img]
+     
+        shuffle_ids = shuffle_ids[:self.max_gt_per_img]
         select_bboxes = ori_bboxes[shuffle_ids]
         select_labels = [ori_labels[i] for i in shuffle_ids]
 
 
         for i in range(len(select_labels)):
             question = random.choice(REGION_QUESTIONS).strip()
-            question = question.replace('<spi_descript>', f'region{i+1}')
+            question = question.replace('<spi_descript>', f'region {i+1}')
             answer = select_labels[i]  # already string
             sources['conversations'].append(
                 {'from': 'human', 'value': question})
@@ -308,13 +310,12 @@ class Flickr30k(CocoDataset):
 
         data_dict['image'] = image
 
-        # double for last detail question
-        ori_bboxes = torch.cat([ori_bboxes], dim=0)
-        ori_labels = ori_labels + select_labels
+ 
+        select_bboxes = torch.cat([select_bboxes], dim=0)
+       
+        select_bboxes = copy.deepcopy(select_bboxes) / image.shape[1]
 
-        ori_bboxes = copy.deepcopy(ori_bboxes) / image.shape[1]
-
-        data_dict['bboxes'] = ori_bboxes
+        data_dict['bboxes'] = select_bboxes
         data_dict['img_metas'] = data_item['img_metas'].data
 
         return data_dict
