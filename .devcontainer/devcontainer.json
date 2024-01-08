@@ -1,0 +1,75 @@
+{
+    "name": "GPT4RoI",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": "..",
+        "args": {}
+    },
+    "features": {
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+        "ghcr.io/devcontainers/features/azure-cli:1": {},
+        "ghcr.io/devcontainers/features/powershell:1": {},
+        "ghcr.io/devcontainers/features/common-utils:2": {},
+        "ghcr.io/devcontainers-contrib/features/zsh-plugins:0": {},
+    },
+    // "forwardPorts": [],
+    "postCreateCommand": "bash ./.devcontainer/postCreateCommand.sh",
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "python.analysis.autoImportCompletions": true,
+                "python.analysis.autoImportUserSymbols": true,
+                "python.defaultInterpreterPath": "~/miniconda3/envs/gpt4roi/bin/python",
+                "python.formatting.provider": "black",
+                "python.linting.enabled": true,
+                "python.linting.flake8Enabled": true,
+                "isort.check": true,
+                "dev.containers.copyGitConfig": true,
+                "terminal.integrated.defaultProfile.linux": "zsh",
+                "terminal.integrated.profiles.linux": {
+                    "zsh": {
+                        "path": "/usr/bin/zsh"
+                    },
+                },
+                "[python]": {
+                }
+            },
+            "extensions": [
+                "aaron-bond.better-comments",
+                "eamodio.gitlens",
+                "EditorConfig.EditorConfig",
+                "foxundermoon.shell-format",
+                "GitHub.copilot-chat",
+                "GitHub.copilot",
+                "lehoanganh298.json-lines-viewer",
+                "mhutchie.git-graph",
+                "ms-azuretools.vscode-docker",
+                "ms-dotnettools.dotnet-interactive-vscode",
+                "ms-python.black-formatter",
+                "ms-python.flake8",
+                "ms-python.isort",
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "njpwerner.autodocstring",
+                "redhat.vscode-yaml",
+                "stkb.rewrap",
+                "yzhang.markdown-all-in-one",
+                "mechatroner.rainbow-csv",
+                "dotenv.dotenv-vscode",
+                "alefragnani.Bookmarks"
+            ]
+        }
+    },
+    "mounts": [
+    ],
+    "runArgs": [
+        "--gpus",
+        "all",
+        // "--ipc",
+        // "host",
+        "--ulimit",
+        "memlock=-1",
+        "--env-file",
+        ".devcontainer/devcontainer.env"
+    ],
+}

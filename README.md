@@ -162,7 +162,7 @@ You can also directly download the file from this [webpage](https://huggingface.
 Apply the delta weights to the original LLaMA-7B weights. Note that this conversion command requires approximately 30 GB of CPU RAM.
 ```bash
 export PYTHONPATH=`pwd`:$PYTHONPATH
-python3 -m scripts.apply_delta.py \
+python3 -m scripts.apply_delta \
     --base ./llama-7b \
     --target ./GPT4RoI-7B \
     --delta ./GPT4RoI-7B-delta
