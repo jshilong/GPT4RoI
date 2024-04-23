@@ -1,0 +1,4 @@
+[flake8]
+# Flake8 Options: https://flake8.pycqa.org/en/latest/user/options.html#index-of-options
+max-line-length = 120
+ignore = F541, E501, F841
