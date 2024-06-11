@@ -221,12 +221,10 @@ You should always use `<region1>, <region2>...` to refer the new bounding box in
 
 If you find GPT4RoI useful for your your research and applications, please cite using this BibTeX:
 ```bibtex
-@misc{zhang2023gpt4roi,
-      title={GPT4RoI: Instruction Tuning Large Language Model on Region-of-Interest}, 
-      author={Shilong Zhang and Peize Sun and Shoufa Chen and Min Xiao and Wenqi Shao and Wenwei Zhang and Kai Chen and Ping Luo},
-      year={2023},
-      eprint={2307.03601},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV}
+@article{zhang2023gpt4roi,
+  title={Gpt4roi: Instruction tuning large language model on region-of-interest},
+  author={Zhang, Shilong and Sun, Peize and Chen, Shoufa and Xiao, Min and Shao, Wenqi and Zhang, Wenwei and Chen, Kai and Luo, Ping},
+  journal={arXiv preprint arXiv:2307.03601},
+  year={2023}
 }
 ```
